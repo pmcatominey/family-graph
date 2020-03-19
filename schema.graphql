@@ -1,0 +1,64 @@
+scalar Date
+
+type Person {
+    id: ID!
+
+    givenNames: [String!]!
+    familyName: String!
+
+    birth: Birth!
+    death: Death
+
+    parents: [Person!]!
+    siblings: [Person!]!
+    children: [Person!]!
+
+    mainPhoto: Document
+    documents: [Document!]!
+}
+
+# Document is a reference to an asset
+type Document {
+    id: ID!
+    mimeType: String!
+    dataUrl: String!
+}
+
+# Event models base fields for any Event type
+interface Event {
+    id: ID!
+    title: String!
+    description: String
+}
+
+type Birth implements Event {
+    id: ID!
+    title: String!
+    description: String
+
+    date: Date!
+    person: Person!
+}
+
+type Death implements Event {
+    id: ID!
+    title: String!
+    description: String
+
+    date: Date!
+    person: Person!
+}
+
+type Marriage implements Event {
+    id: ID!
+    title: String!
+    description: String
+
+    date: Date!
+    people: [Person!]!
+}
+
+type CustomEvent implements Event {
+    id: ID!
+    title: String!
+}
